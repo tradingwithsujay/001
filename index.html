@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading With Sujay</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            yellow: '#FACC15', // Bright yellow for dark mode
+                            dark: '#0a0a0a',   // Darker Black
+                            surface: '#171717', // Neutral 900
+                            accent: '#EAB308', // Darker yellow for hovers
+                        }
+                    },
+                    boxShadow: {
+                        'glow': '0 0 20px rgba(250, 204, 21, 0.15)',
+                        'card': '0 10px 30px -5px rgba(0, 0, 0, 0.5)',
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #262626; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FACC15; 
+        }
+        
+        .glass-nav {
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Animation Utilities */
+        .hover-lift {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.6);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(250, 204, 21, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-brand-dark text-neutral-300 font-sans antialiased selection:bg-brand-yellow selection:text-brand-dark">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer group" onclick="window.scrollTo(0,0)">
+                    <i class="fa-solid fa-chart-line text-brand-yellow text-2xl group-hover:drop-shadow-[0_0_8px_rgba(250,204,21,0.5)] transition-all"></i>
+                    <span class="font-bold text-xl text-white tracking-tight">TRADING WITH <span class="text-brand-yellow">SUJAY</span></span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#about" class="text-sm font-medium hover:text-brand-yellow transition-colors relative group">
+                        About
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-yellow transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#videos" class="text-sm font-medium hover:text-brand-yellow transition-colors relative group">
+                        Videos
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-yellow transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#community" class="text-sm font-medium hover:text-brand-yellow transition-colors relative group">
+                        Community
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-yellow transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#contact" class="text-sm font-medium hover:text-brand-yellow transition-colors relative group">
+                        Contact
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-yellow transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    
+                    <!-- Trade Audit Pro Button -->
+                    <a href="trade-audit-pro.html" class="bg-brand-yellow text-brand-dark px-6 py-2.5 rounded font-bold text-sm hover:bg-yellow-300 transition-all transform hover:scale-105 shadow-[0_0_15px_rgba(250,204,21,0.2)] hover:shadow-[0_0_25px_rgba(250,204,21,0.4)]">
+                        Trade Audit Pro <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-neutral-300 hover:text-white focus:outline-none transition-colors">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-surface border-b border-neutral-800 shadow-xl">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium hover:text-brand-yellow hover:bg-neutral-800 transition-all">About</a>
+                <a href="#videos" class="block px-3 py-2 rounded-md text-base font-medium hover:text-brand-yellow hover:bg-neutral-800 transition-all">Videos</a>
+                <a href="#community" class="block px-3 py-2 rounded-md text-base font-medium hover:text-brand-yellow hover:bg-neutral-800 transition-all">Community</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium hover:text-brand-yellow hover:bg-neutral-800 transition-all">Contact</a>
+                <a href="trade-audit-pro.html" class="block px-3 py-3 mt-4 text-center rounded text-base font-bold bg-brand-yellow text-brand-dark shadow-lg">Trade Audit Pro</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <!-- Background Elements (Removed Blue) -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-brand-yellow opacity-5 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-neutral-800 opacity-20 rounded-full blur-3xl"></div>
+        <!-- Grid overlay -->
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-30"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-4xl mx-auto">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-neutral-800/80 border border-neutral-700 text-brand-yellow text-xs font-bold uppercase tracking-wide mb-8 shadow-lg shadow-black/20 hover:border-brand-yellow/50 transition-colors cursor-default backdrop-blur-sm">
+                    <span class="w-2 h-2 rounded-full bg-brand-yellow animate-pulse"></span>
+                    Probability Over Prediction
+                </div>
+                <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-6 leading-tight">
+                    Simplify Your <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-yellow to-yellow-200 relative">
+                        Trading Journey
+                    </span>
+                </h1>
+                <p class="text-lg md:text-xl text-neutral-400 mb-10 leading-relaxed max-w-2xl mx-auto">
+                    Trading is not about predictions or secret strategies.
+It’s about executing a repeatable process with discipline, risk control, and emotional awareness.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#community" class="px-8 py-4 rounded bg-brand-yellow text-brand-dark font-bold text-lg hover:bg-yellow-300 transition-all shadow-[0_0_20px_rgba(250,204,21,0.3)] hover:-translate-y-1">
+                        Join Free Community
+                    </a>
+                    <a href="#videos" class="px-8 py-4 rounded border border-neutral-600 text-white font-semibold text-lg hover:bg-neutral-800 hover:border-neutral-500 transition-all hover:-translate-y-1">
+                        <i class="fa-solid fa-play mr-2 text-brand-yellow text-xs"></i> Learn On Youtube
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-brand-surface relative border-y border-neutral-800/50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <i class="fa-solid fa-quote-left text-4xl text-brand-yellow/20 mb-4"></i>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">My Trading Philosophy</h2>
+            </div>
+            
+            <div class="bg-brand-dark p-8 md:p-12 rounded-2xl border border-neutral-800 shadow-2xl relative overflow-hidden">
+                <!-- Decorative background elements -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-brand-yellow/5 rounded-full blur-3xl -mr-16 -mt-16"></div>
+                
+                <div class="relative z-10 text-center">
+                    <p class="text-xl md:text-2xl text-neutral-300 leading-relaxed font-light mb-8">
+                        "I don’t believe trading is about being right.
+I believe it’s about managing risk when you’re wrong."
+                    </p>
+                    <p class="text-neutral-400 mb-12 leading-relaxed max-w-3xl mx-auto">
+                        I started trading like most people — searching for certainty, patterns, and high-probability setups. Over time, I realised the market doesn’t reward prediction it rewards repetition.
+What works is a minimal, rule-based approach focused on price behavior, risk management, consistency and psychological control.
+                    </p>
+
+                    <!-- Stats Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 border-t border-neutral-800 pt-8">
+                        <div class="p-4 hover:bg-neutral-800/50 rounded-lg transition-colors">
+                            <h3 class="text-4xl font-bold text-brand-yellow mb-1">5+</h3>
+                            <p class="text-xs text-neutral-500 uppercase tracking-widest">Years Experience</p>
+                        </div>
+                        <div class="p-4 hover:bg-neutral-800/50 rounded-lg transition-colors">
+                            <h3 class="text-4xl font-bold text-brand-yellow mb-1">100K+</h3>
+                            <p class="text-xs text-neutral-500 uppercase tracking-widest">Traders Reached via Content</p>
+                        </div>
+                        <div class="p-4 hover:bg-neutral-800/50 rounded-lg transition-colors">
+                            <h3 class="text-4xl font-bold text-brand-yellow mb-1">150+</h3>
+                            <p class="text-xs text-neutral-500 uppercase tracking-widest">Educational Videos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- YouTube Feature Section -->
+    <section id="videos" class="py-24 bg-brand-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+                <div>
+                    <span class="text-brand-yellow font-bold tracking-wider uppercase text-sm mb-2 block">Free Education</span>
+                    <h2 class="text-3xl font-bold text-white mb-2">Latest Videos</h2>
+                    <p class="text-neutral-400">Deep dives into market trends and educational content.</p>
+                </div>
+                <a href="https://youtube.com" target="_blank" class="hidden md:inline-flex items-center text-white font-bold hover:text-brand-yellow transition-colors mt-4 md:mt-0 group">
+                    Visit YouTube Channel <i class="fa-solid fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform text-brand-yellow"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Video Card 1 -->
+                <div class="group bg-brand-surface border border-neutral-800 rounded-xl overflow-hidden hover-lift hover:border-brand-yellow/30 transition-all">
+                    <div class="aspect-video bg-black relative flex items-center justify-center overflow-hidden">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all z-10"></div>
+                        <i class="fa-brands fa-youtube text-red-600 text-6xl z-20 group-hover:scale-110 transition-transform cursor-pointer drop-shadow-2xl"></i>
+                        <div class="absolute bottom-3 right-3 bg-black/90 text-white px-2 py-1 text-xs font-bold rounded z-20 border border-neutral-800">12:45</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-[10px] font-bold px-2 py-1 bg-neutral-800 text-neutral-400 border border-neutral-700 rounded uppercase tracking-wide">Strategy</span>
+                            <span class="text-xs text-neutral-500"><i class="fa-regular fa-clock mr-1"></i> 2 days ago</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2 group-hover:text-brand-yellow transition-colors">Price Action Masterclass</h3>
+                        <p class="text-sm text-neutral-400 line-clamp-2">Learn the fundamental patterns that repeat in every market cycle.</p>
+                    </div>
+                </div>
+
+                <!-- Video Card 2 -->
+                <div class="group bg-brand-surface border border-neutral-800 rounded-xl overflow-hidden hover-lift hover:border-brand-yellow/30 transition-all">
+                    <div class="aspect-video bg-black relative flex items-center justify-center overflow-hidden">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all z-10"></div>
+                        <i class="fa-brands fa-youtube text-red-600 text-6xl z-20 group-hover:scale-110 transition-transform cursor-pointer drop-shadow-2xl"></i>
+                        <div class="absolute bottom-3 right-3 bg-black/90 text-white px-2 py-1 text-xs font-bold rounded z-20 border border-neutral-800">08:30</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-[10px] font-bold px-2 py-1 bg-neutral-800 text-neutral-400 border border-neutral-700 rounded uppercase tracking-wide">Psychology</span>
+                            <span class="text-xs text-neutral-500"><i class="fa-regular fa-clock mr-1"></i> 5 days ago</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2 group-hover:text-brand-yellow transition-colors">Risk Management 101</h3>
+                        <p class="text-sm text-neutral-400 line-clamp-2">Why 90% of traders fail and how you can avoid blowing up your account.</p>
+                    </div>
+                </div>
+
+                <!-- Video Card 3 -->
+                <div class="group bg-brand-surface border border-neutral-800 rounded-xl overflow-hidden hover-lift hover:border-brand-yellow/30 transition-all">
+                    <div class="aspect-video bg-black relative flex items-center justify-center overflow-hidden">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all z-10"></div>
+                        <i class="fa-brands fa-youtube text-red-600 text-6xl z-20 group-hover:scale-110 transition-transform cursor-pointer drop-shadow-2xl"></i>
+                        <div class="absolute bottom-3 right-3 bg-black/90 text-white px-2 py-1 text-xs font-bold rounded z-20 border border-neutral-800">15:10</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-[10px] font-bold px-2 py-1 bg-neutral-800 text-neutral-400 border border-neutral-700 rounded uppercase tracking-wide">Market View</span>
+                            <span class="text-xs text-neutral-500"><i class="fa-regular fa-clock mr-1"></i> 1 week ago</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2 group-hover:text-brand-yellow transition-colors">Weekly Market Outlook</h3>
+                        <p class="text-sm text-neutral-400 line-clamp-2">Analyzing Nifty, Bank Nifty, and major stocks for the upcoming week.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section (Modified: Only Telegram) -->
+    <section id="community" class="py-24 bg-brand-surface border-y border-neutral-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-brand-yellow font-bold tracking-wider uppercase text-sm mb-2 block">The Inner Circle</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4">Join The Community</h2>
+                <p class="text-neutral-400 max-w-2xl mx-auto">
+                    Most Telegram “communities” are just creators posting messages… audience can’t even interact.
+But trading is a lonely journey — no one to share doubts, no one to discuss psychology or mindset.
+That’s why I invite you to YouTube’s first FREE Trading Community on Telegram<br/><br/>This platform is not for traders looking for tips, shortcuts, or guaranteed profits.
+                </p>
+            </div>
+
+            <!-- Single Feature Card for Telegram -->
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-gradient-to-br from-neutral-900 to-black border border-neutral-800 rounded-2xl p-8 md:p-12 relative overflow-hidden group hover:border-brand-yellow/40 transition-all shadow-2xl">
+                    <!-- Decor -->
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-brand-yellow/10 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-brand-yellow/20 transition-colors duration-500"></div>
+                    
+                    <div class="flex flex-col md:flex-row items-center gap-10 relative z-10">
+                        <!-- Icon Column -->
+                        <div class="flex-shrink-0 text-center md:text-left">
+                            <div class="w-24 h-24 bg-neutral-800 rounded-2xl flex items-center justify-center mb-4 mx-auto md:mx-0 shadow-inner border border-neutral-700">
+                                <i class="fa-brands fa-telegram text-5xl text-brand-yellow"></i>
+                            </div>
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-green-900/30 border border-green-800 text-green-400 text-xs font-bold uppercase tracking-wide">
+                                <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> Active Now
+                            </div>
+                        </div>
+
+                        <!-- Content Column -->
+                        <div class="flex-grow text-center md:text-left">
+                            <h3 class="text-3xl font-bold text-white mb-2">Telegram Community</h3>
+                            <p class="text-neutral-400 mb-6 text-lg">Trading is not just about charts… it’s about surviving & growing with the right mindset.
+Let’s build this healthy community together </p>
+                            
+                            <!-- Features Grid -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8 text-left">
+                                <div class="flex items-center gap-3 text-neutral-300">
+                                    <i class="fa-solid fa-check text-brand-yellow"></i> <span>Share Experiences</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-neutral-300">
+                                    <i class="fa-solid fa-check text-brand-yellow"></i> <span>Ask Doubts</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-neutral-300">
+                                    <i class="fa-solid fa-check text-brand-yellow"></i> <span>Feedback & Suggestions</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-neutral-300">
+                                    <i class="fa-solid fa-check text-brand-yellow"></i> <span>Psychological Support</span>
+                                </div>
+                            </div>
+
+                            <a href="https://tinyurl.com/3c4c3kxy" class="inline-flex items-center justify-center px-8 py-4 bg-brand-yellow text-brand-dark font-bold rounded-lg hover:bg-yellow-300 transition-all shadow-lg hover:shadow-yellow-500/20 w-full md:w-auto">
+                                <i class="fa-brands fa-telegram mr-2"></i> Join Free Channel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section (New) -->
+    <section class="py-24 bg-brand-dark border-t border-neutral-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-brand-yellow font-bold tracking-wider uppercase text-sm mb-2 block">Success Stories</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-white">What Students Say</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-brand-surface p-8 rounded-xl border border-neutral-800 relative hover:border-brand-yellow/30 transition-all">
+                    <i class="fa-solid fa-quote-right absolute top-6 right-6 text-4xl text-neutral-800"></i>
+                    <div class="flex items-center gap-1 mb-4 text-brand-yellow text-xs">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-neutral-300 mb-6 leading-relaxed">
+                        "Sujay's simplified approach to price action changed my trading. No more messy indicators, just pure market structure. Highly recommended!"
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-neutral-700 rounded-full flex items-center justify-center font-bold text-white">R</div>
+                        <div>
+                            <p class="text-white font-bold text-sm">Rahul S.</p>
+                            <p class="text-neutral-500 text-xs">Part-time Trader</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-brand-surface p-8 rounded-xl border border-neutral-800 relative hover:border-brand-yellow/30 transition-all">
+                    <i class="fa-solid fa-quote-right absolute top-6 right-6 text-4xl text-neutral-800"></i>
+                    <div class="flex items-center gap-1 mb-4 text-brand-yellow text-xs">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-neutral-300 mb-6 leading-relaxed">
+                        "The risk management video was an eye-opener. I stopped blowing accounts and finally started seeing consistent growth. The community is gold."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-neutral-700 rounded-full flex items-center justify-center font-bold text-white">A</div>
+                        <div>
+                            <p class="text-white font-bold text-sm">Aditya M.</p>
+                            <p class="text-neutral-500 text-xs">Full-time Trader</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-brand-surface p-8 rounded-xl border border-neutral-800 relative hover:border-brand-yellow/30 transition-all">
+                    <i class="fa-solid fa-quote-right absolute top-6 right-6 text-4xl text-neutral-800"></i>
+                    <div class="flex items-center gap-1 mb-4 text-brand-yellow text-xs">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-neutral-300 mb-6 leading-relaxed">
+                        "I used to overtrade and lose money. Sujay's mentorship taught me patience. Now I take fewer trades but with much higher conviction."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-neutral-700 rounded-full flex items-center justify-center font-bold text-white">P</div>
+                        <div>
+                            <p class="text-white font-bold text-sm">Priya K.</p>
+                            <p class="text-neutral-500 text-xs">Equity Trader</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-brand-dark relative overflow-hidden">
+        <!-- Decor -->
+        <div class="absolute left-0 bottom-0 w-64 h-64 bg-brand-yellow opacity-5 rounded-tr-full"></div>
+
+        <div class="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-10">
+                <span class="text-brand-yellow font-bold tracking-wider uppercase text-sm mb-2 block">Support</span>
+                <h2 class="text-3xl font-bold text-white mb-4">Get in Touch</h2>
+                <p class="text-neutral-400">Have a question about the mentorship or Trade Audit Pro?</p>
+            </div>
+
+            <form class="space-y-5 bg-brand-surface p-8 rounded-xl border border-neutral-800 shadow-2xl">
+                <div>
+                    <label for="name" class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-2">Name</label>
+                    <input type="text" id="name" class="w-full bg-neutral-900 border border-neutral-700 rounded px-4 py-3 text-white focus:outline-none focus:border-brand-yellow focus:ring-1 focus:ring-brand-yellow transition-all placeholder-neutral-600" placeholder="Your Name">
+                </div>
+                <div>
+                    <label for="email" class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-2">Email</label>
+                    <input type="email" id="email" class="w-full bg-neutral-900 border border-neutral-700 rounded px-4 py-3 text-white focus:outline-none focus:border-brand-yellow focus:ring-1 focus:ring-brand-yellow transition-all placeholder-neutral-600" placeholder="your@email.com">
+                </div>
+                <div>
+                    <label for="message" class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-2">Message</label>
+                    <textarea id="message" rows="4" class="w-full bg-neutral-900 border border-neutral-700 rounded px-4 py-3 text-white focus:outline-none focus:border-brand-yellow focus:ring-1 focus:ring-brand-yellow transition-all placeholder-neutral-600" placeholder="How can we help?"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-brand-yellow text-brand-dark font-bold py-4 rounded hover:bg-yellow-300 transition-all shadow-[0_0_15px_rgba(250,204,21,0.2)] hover:-translate-y-1">
+                    Send Message
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Professional Footer -->
+    <footer class="bg-black pt-20 pb-10 text-neutral-400 border-t border-neutral-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <!-- Brand -->
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-6">
+                        <i class="fa-solid fa-chart-line text-brand-yellow text-xl"></i>
+                        <span class="font-bold text-xl text-white">TRADING WITH <span class="text-brand-yellow">SUJAY</span></span>
+                    </div>
+                    <p class="text-sm leading-relaxed max-w-sm mb-6">
+                        Helping traders think clearly, manage risk, trade with discipline & probability.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-neutral-900 flex items-center justify-center hover:bg-brand-yellow hover:text-brand-dark transition-all"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-neutral-900 flex items-center justify-center hover:bg-brand-yellow hover:text-brand-dark transition-all"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-neutral-900 flex items-center justify-center hover:bg-brand-yellow hover:text-brand-dark transition-all"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-white font-bold mb-6">Quick Links</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#about" class="hover:text-brand-yellow transition-colors flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs"></i> About Me</a></li>
+                        <li><a href="#videos" class="hover:text-brand-yellow transition-colors flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs"></i> Free Analysis</a></li>
+                        <li><a href="trade-audit-pro.html" class="hover:text-brand-yellow transition-colors flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs"></i> Trade Audit Pro</a></li>
+                        <li><a href="#contact" class="hover:text-brand-yellow transition-colors flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs"></i> Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <h4 class="text-white font-bold mb-6">Legal</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Refund Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Disclaimer -->
+            <div class="border-t border-neutral-900 pt-8">
+                <div class="bg-neutral-900/50 p-6 rounded-xl text-xs text-neutral-500 leading-relaxed text-justify border border-neutral-900">
+                    <p class="font-bold text-neutral-400 mb-2 uppercase">Financial Disclaimer:</p>
+                    <p>
+                        The content provided on "Trading With Sujay" (including the website, YouTube channel, community, and associated software "Trade Audit Pro") is for educational and informational purposes only. It does not constitute financial, investment, or trading advice. 
+                        Trading in financial markets (Stocks, Options, Forex, Crypto, etc.) involves a high degree of risk and may result in the loss of your entire capital. Past performance is not indicative of future results. You are solely responsible for your own trading decisions. 
+                        Please consult with a certified financial advisor before making any investment decisions. "Trading With Sujay" is not a SEBI registered investment advisor.
+                    </p>
+                </div>
+                <div class="flex flex-col md:flex-row justify-between items-center mt-8 text-neutral-600 text-sm">
+                    <p>&copy; 2024 Trading With Sujay. All rights reserved.</p>
+                    <p class="mt-2 md:mt-0">Designed with <i class="fa-solid fa-heart text-red-500 mx-1"></i> for Traders</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
